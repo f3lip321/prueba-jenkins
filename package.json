@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "build": "echo 'No hay proceso de compilación en este proyecto'"  ,
     "test": "jest --coverage --forceExit"
   },
   "dependencies": {
