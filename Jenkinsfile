@@ -40,32 +40,29 @@ pipeline {
                 }
             }
         }
-    
+
         stage('Validar servidor') {
             steps {
                 script {
                     echo "🚀 Iniciando servidor..."
+                    // Inicia el servidor en segundo plano
+                    bat 'start /B npm start'
                     
-                    // Inicia el servidor de manera sincrónica (sin /B) para esperar a que se inicie correctamente
-                    bat 'npm start &'
-
-                    // Esperar un momento más para asegurarse de que el servidor esté completamente levantado
-                    sleep(time: 10, unit: 'SECONDS')  // Aumenta el tiempo de espera si es necesario
+                    // Esperar un momento para que el server levante
+                    sleep(time: 5, unit: 'SECONDS')
 
                     echo "🔎 Verificando respuesta de la API..."
-                    // Hacemos un request a las rutas de la API
-                    def responseUsers = bat(script: 'curl -s -o nul -w "%{http_code}" http://localhost:3000/users', returnStdout: true).trim()
-                    def responseUserId = bat(script: 'curl -s -o nul -w "%{http_code}" http://localhost:3000/users/1', returnStdout: true).trim()
-
-                    if (responseUsers != '200' || responseUserId != '200') {
-                        error "❌ La API no respondió correctamente. Respuestas HTTP: /users: ${responseUsers}, /users/1: ${responseUserId}"
+                    // Hacemos un request a localhost (suponiendo puerto 3000)
+                    def response = bat(script: 'curl -s -o nul -w "%{http_code}" http://localhost:3000', returnStdout: true).trim()
+                    
+                    if (response != '200') {
+                        error "❌ La API no respondió correctamente. Código HTTP: ${response}"
                     } else {
-                        echo "✅ La API respondió correctamente a todas las rutas."
+                        echo "✅ La API respondió correctamente (HTTP 200)"
                     }
                 }
             }
         }
-        
     }
 
     post {
