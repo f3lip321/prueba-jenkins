@@ -1,36 +1,52 @@
-# Informe de Ejecución del Pipeline
+# 📄 Informe de Ejecución del Pipeline
 
-## Resumen
+## 🧾 Resumen
 
-Este informe describe los pasos realizados para configurar y ejecutar el pipeline de CI/CD para la prueba "Implementación de un pipeline de integración continua".
+Este informe documenta los pasos realizados para configurar y ejecutar un pipeline de CI/CD como parte de la prueba **"Implementación de un pipeline de integración continua"**.
 
-## Pasos
+---
 
-1. **Configuración inicial del proyecto**
+## 🛠️ Pasos Realizados
 
-   - Se inicializó un repositorio local y se conectó a GitHub.
-   - Se hizo commit de una versión inicial de los archivos
+### 1. 🚀 Configuración Inicial del Proyecto
 
-2. **Configuración básica de la API**
+- Se inicializó un repositorio local y se vinculó con **GitHub**.
+- Se realizó commit de una versión inicial del proyecto con los archivos base.
 
-   - Se verifica el funcionamiento de la API, donde se detecta que faltaba la inclusión del script para levantar el servidor, como tambien incorporar en el archivo app.js, la siguiente instrucción:
+---
 
-   const PORT = 3000;
-   app.listen(PORT, () => console.log(`API is running on port ${PORT}`));
+### 2. ⚙️ Configuración Básica de la API
 
-3. **Automatización básica con Jenkins**
+- Se verificó el correcto funcionamiento de la API.
+- Se detectó la ausencia del script para iniciar el servidor.
+- Se añadió en el archivo `app.js` la siguiente instrucción para levantar el servidor:
 
-   - Se configuró Jenkins para automatizar el proceso de clonación del proyecto, instalación de dependencias y despliegue.
-   - Se usó opción "Pipeline script from SCM"
-   - Se usó nombre del Branch: main
-   - Y para Script path: Jenkinsfile
+```js
+const PORT = 3000;
+app.listen(PORT, () => console.log(`API is running on port ${PORT}`));
+```
 
-4. **Ejecución de pruebas automatizadas**
+### 3. 🤖 Automatización Básica con Jenkins
 
-   - Se modifica el pipeline para ejecutar pruebas preescritas automaticamente.
+- Se configuró **Jenkins** para automatizar el proceso de integración y despliegue continuo.
+- Se utilizó la opción **"Pipeline script from SCM"** para obtener el pipeline directamente desde el repositorio.
+- Configuración realizada:
+  - **Branch**: `main`
+  - **Script path**: `Jenkinsfile`
+- Se verificó que Jenkins ejecutara correctamente las etapas definidas en el pipeline.
 
-5. **Automatización básica con Jenkins**
-   - Se configuró Jenkins para automatizar el proceso de construcción, prueba y despliegue.
-   - Se usó opción "Pipeline script from SCM"
-   - Se usó nombre del Branch: main
-   - Y para Script path: Jenkinsfile
+---
+
+### 4. ✅ Ejecución de Pruebas Automatizadas
+
+- Se añadió un nuevo stage llamado **"Test"** en el archivo `Jenkinsfile` para ejecutar pruebas automatizadas.
+- Se realizaron modificaciones en el archivo `tests/app.test.js` para provocar una falla intencional y validar que el pipeline detectara errores correctamente.
+- Se confirmó que el pipeline fallara al encontrar errores en las pruebas, asegurando la calidad del código antes de proceder al despliegue.
+
+---
+
+### 5. 📊 Reporte y Retroalimentación
+
+- Se creó este archivo `REPORT.md` para documentar los pasos realizados y los problemas encontrados durante la implementación del pipeline.
+- Se añadió una sección de resultados para detallar el comportamiento del pipeline y las pruebas realizadas.
+- Se realizaron ajustes en el método **POST** de la API para generar un resultado acorde con las pruebas ejecutadas.
