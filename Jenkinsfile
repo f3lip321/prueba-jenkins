@@ -45,7 +45,10 @@ pipeline {
                 script { 
                     try { 
                         echo "🚀 Desplegando aplicación..." 
-                        bat 'npm start &' 
+                        bat 'start /B npm start'
+                        echo "La aplicación se está ejecutando en segundo plano."
+                        bat 'curl -s http://localhost:3000/users'
+                        echo "La aplicación se ha desplegado correctamente."
                     } catch (Exception e) { 
                         error("❌ Error en la etapa de Deploy") 
                     } 
@@ -57,6 +60,7 @@ pipeline {
     post {
         success {
             echo "✅ Pipeline completado con éxito"
+            cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml'
         }
         failure {
             echo "❌ El pipeline ha fallado"
