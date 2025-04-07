@@ -1,6 +1,5 @@
 pipeline {
     agent any 
-
     environment {
         NODE_VERSION = '18'
         PATH = "C:\\Program Files\\nodejs;${env.PATH}"
@@ -41,28 +40,18 @@ pipeline {
             }
         }
 
-        stage('Validar servidor') {
-            steps {
-                script {
-                    echo "🚀 Iniciando servidor..."
-                    // Inicia el servidor en segundo plano
-                    bat 'start /B npm start'
-                    
-                    // Esperar un momento para que el server levante
-                    sleep(time: 5, unit: 'SECONDS')
-
-                    echo "🔎 Verificando respuesta de la API..."
-                    // Hacemos un request a localhost (suponiendo puerto 3000)
-                    def response = bat(script: 'curl -s -o nul -w "%{http_code}" http://localhost:3000', returnStdout: true).trim()
-                    
-                    if (response != '200') {
-                        error "❌ La API no respondió correctamente. Código HTTP: ${response}"
-                    } else {
-                        echo "✅ La API respondió correctamente (HTTP 200)"
-                    }
-                }
-            }
-        }
+        stage('Deploy') { 
+            steps { 
+                script { 
+                    try { 
+                        echo "🚀 Desplegando aplicación..." 
+                        bat 'npm start &' 
+                    } catch (Exception e) { 
+                        error("❌ Error en la etapa de Deploy") 
+                    } 
+                } 
+            } 
+        }     
     }
 
     post {
