@@ -59,8 +59,7 @@ pipeline {
 
     post {
         success {
-            echo "✅ Pipeline completado con éxito"
-            cobertura coberturaReportFile: 'coverage/cobertura-coverage.xml'
+            echo "✅ Pipeline completado con éxito"            
             archiveArtifacts artifacts: 'coverage/**', allowEmptyArchive: true
         }
         failure {

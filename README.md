@@ -48,5 +48,4 @@ app.listen(PORT, () => console.log(`API is running on port ${PORT}`));
 ### 5. 📊 Reporte y Retroalimentación
 
 - Se creó este archivo `REPORT.md` para documentar los pasos realizados y los problemas encontrados durante la implementación del pipeline.
-- Se añadió una sección de resultados para detallar el comportamiento del pipeline y las pruebas realizadas.
-- Se realizaron ajustes en el método **POST** de la API para generar un resultado acorde con las pruebas ejecutadas.
+- Se realizaron ajustes en el método **POST** de la API para generar un resultado acorde con las pruebas ejecutadas. Fue necesario instalar plugin de coverage y code coverage en jenkins. Lo ultimo fue modificar script test.
